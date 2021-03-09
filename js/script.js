@@ -40,7 +40,7 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 
 
-    // Start Timer---------------------------------------2 days------------------------------
+    // Start Timer--------------------------------------for 2 days------------------------------
     const deadline = new Date(new Date(). getTime() + (48 * 60 * 60 * 1000)),  // + 2 days from current date
         action = document.querySelector('#action');
     action.innerHTML = ' in 2 days';
@@ -95,6 +95,53 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     setClock('.timer', deadline);
+
+
+    // Start Modal--------------------Self-opening a modal window in 50 seconds after opening this site----------
+    const modalTrigger = document.querySelectorAll('[data-modal]'),
+        modal = document.querySelector('.modal');
+
+    function openModal() {
+        // modal.classList.add('show');
+        // modal.classList.remove('hide');
+        modal.classList.toggle('show');  // You can change add + remove or this toggle
+        document.body.style.overflow = 'hidden';
+        clearInterval(modalTimerId);
+    }
+
+    modalTrigger.forEach(btn => {
+        btn.addEventListener('click', openModal);
+    });
+
+    function closeModal() {
+        // modal.classList.add('hide');
+        // modal.classList.remove('show');
+        modal.classList.toggle('show');  // You can change add + remove or this toggle
+        document.body.style.overflow = '';
+    }
+
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal || e.target.getAttribute('data-close') == '') {
+            closeModal();
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.code === 'Escape' && modal.classList.contains('show')) {
+            closeModal();
+        }
+    });
+
+    const modalTimerId = setTimeout(openModal, 50000);  // Setting this timer to self-open the modal window after opening this site
+
+    function showModalByScroll() {
+        if (window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight) {
+            openModal();
+            window.removeEventListener('scroll', showModalByScroll);
+        }
+    }
+
+    window.addEventListener('scroll', showModalByScroll);
 
 
 

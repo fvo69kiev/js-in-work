@@ -144,5 +144,76 @@ window.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', showModalByScroll);
 
 
+    // Create Cards-----------------------------------------use classes-------------------------------------
+    class MenuCard {
+        constructor(src, alt, title, descr, price, parentSelector, ...classes) {
+            this.src = src;
+            this.alt = alt;
+            this.title = title;
+            this.descr = descr;
+            this.price = price;
+            this.classes = classes;
+            this.parent = document.querySelector(parentSelector);
+            // this.transfer = 27;
+            // this.changeToUAH();
+        }
+
+        // Currency conversion function-------
+        // changeToUAH() {
+        //     this.price = this.price * this.transfer;
+        // }
+
+        render() {
+            const element = document.createElement('div');
+
+            if (this.classes.length === 0) {
+                this.element = 'menu__item';
+                element.classList.add(this.element);
+            } else {
+                this.classes.forEach(className => element.classList.add(className));
+            }
+
+            element.innerHTML = `
+                <img src=${this.src} alt=${this.alt}>
+                <h3 class="menu__item-subtitle">${this.title}</h3>
+                <div class="menu__item-descr">${this.descr}</div>
+                <div class="menu__item-divider"></div>
+                <div class="menu__item-price">
+                    <div class="menu__item-cost">Price:</div>
+                    <div class="menu__item-total"><span>${this.price}</span> usd/per day</div>
+                </div>
+            `;
+            this.parent.append(element);
+        }
+    }
+
+    new MenuCard(
+        "img/tabs/vegy.jpg",
+        "vegy",
+        "Menu \"Fitness\"",
+        "Menu \"Fitness\" is a new approach to cooking: more fresh vegetables and fruits. For people who are interested in sports; active and healthy. This is a completely new product with an optimal price and high quality!",
+        8,
+        ".menu .container",
+    ).render();
+
+    new MenuCard(
+        "img/tabs/elite.jpg",
+        "elite",
+        "Menu \"Premium\"",
+        "Menu \"Premium\" - we use not only beautiful packaging design, but also high-quality execution of dishes. Red fish, seafood, fruits - restaurant menu without going to the restaurant!",
+        21,
+        ".menu .container",
+    ).render();
+
+    new MenuCard(
+        "img/tabs/post.jpg",
+        "post",
+        "Menu \"Lenten\"",
+        "Menu  \"Lenten\" is a careful selection of ingredients: complete absence of animal products, milk from almonds, oats, coconut or buckwheat, the right amount of protein from tofu and imported vegetarian steaks.",
+        16,
+        ".menu .container",
+    ).render();
+
+
 
 });

@@ -144,7 +144,15 @@ window.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', showModalByScroll);
 
 
-    // Create Cards-----------------------------------------use classes-------------------------------------
+    // Create Cards-------------------------------------------------------------------
+        const getResource = async (url) => {
+            const res = await fetch(url);
+            if (!res.ok) {
+                throw new Error(`Could not fetch ${url}, status: ${res.status}`);
+            }
+            return await res.json();
+        };
+    // Use classes-------------------------------
     class MenuCard {
         constructor(src, alt, title, descr, price, parentSelector, ...classes) {
             this.src = src;
@@ -187,32 +195,37 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    new MenuCard(
-        "img/tabs/vegy.jpg",
-        "vegy",
-        "Menu \"Fitness\"",
-        "Menu \"Fitness\" is a new approach to cooking: more fresh vegetables and fruits. For people who are interested in sports; active and healthy. This is a completely new product with an optimal price and high quality!",
-        8,
-        ".menu .container",
-    ).render();
+    getResource('http://localhost:3000/menu')
+        .then(data => {
+          data.forEach(({img, altimg, title, descr, price}) => {
+            new MenuCard(img, altimg, title, descr, price, '.menu .container').render();
+          });
+        });
 
-    new MenuCard(
-        "img/tabs/elite.jpg",
-        "elite",
-        "Menu \"Premium\"",
-        "Menu \"Premium\" - we use not only beautiful packaging design, but also high-quality execution of dishes. Red fish, seafood, fruits - restaurant menu without going to the restaurant!",
-        21,
-        ".menu .container",
-    ).render();
-
-    new MenuCard(
-        "img/tabs/post.jpg",
-        "post",
-        "Menu \"Lenten\"",
-        "Menu  \"Lenten\" is a careful selection of ingredients: complete absence of animal products, milk from almonds, oats, coconut or buckwheat, the right amount of protein from tofu and imported vegetarian steaks.",
-        16,
-        ".menu .container",
-    ).render();
+    // Use function---------------------------------
+    // getResource('http://localhost:3000/menu')
+    //     .then(data => createCard(data));
+    //
+    // function createCard(data) {
+    //   data.forEach(({img, altimg, title, descr, price}) => {
+    //     const element = document.createElement('div');
+    //
+    //     element.classList.add('menu__item');
+    //
+    //     element.innerHTML = `
+    //       <img src=${img} alt=${altimg}>
+    //       <h3 class="menu__item-subtitle">${title}</h3>
+    //       <div class="menu__item-descr">${descr}</div>
+    //       <div class="menu__item-divider"></div>
+    //       <div class="menu__item-price">
+    //           <div class="menu__item-cost">Price:</div>
+    //           <div class="menu__item-total"><span>${price}</span> usd/per day</div>
+    //       </div>
+    //     `;
+    //
+    //     document.querySelector('.menu .container').append(element);
+    //   });
+    // }
 
 
     // Forms----------------------------------------------------------------------

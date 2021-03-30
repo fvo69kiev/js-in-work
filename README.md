@@ -5,15 +5,18 @@
     <li>The JavaScript language</li>
     <li>Browser: Document, Events, Interfaces</li>    
     </ul>
-    <h4><a href="https://js-in-work-4eebb.web.app/" rel="nofollow">Demo version</a></h4>
+    <h3><a href="https://js-in-work-4eebb.web.app/" rel="nofollow" target="_blank">Demo version</a></h3>
     <h2>List of JS code blocks</h2>
     <ul>
     <li>Tabs</li>
     <li>Timer</li>
     <li>Modal</li>
-    <li>Cards - use classes or function</li>
+    <li>Forms</li>
+    <li>Cards</li>
     <li>Slider</li>
-    <li>Menu & scroll to #</li>
+    <li>Calculate</li>
+    <li>Menu</li>
+    <li>Scroll to Top</li>
     </ul>
     <h2>Examples</h2>
     <p>Sample code for implementing a timer:</p>    
